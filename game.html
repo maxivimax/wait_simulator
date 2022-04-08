@@ -14,7 +14,8 @@
         font-size: 4em;
         background-color: #000000;
       }
-      div {
+      div,
+      h1 {
         color: white;
       }
 
@@ -73,122 +74,49 @@
       <div id="stopwatch2">00</div>
       <div id="stopwatch">00</div>
 
-      <button class="button" role="button" onClick="gameFinished()">Я всё</button>
+      <button class="button" onClick="gameFinished()" id="stp" >
+        Я всё
+      </button>
     </div>
 
     <script type="text/javascript">
-      window.onload = () => {
-        StartStop()
+      var stopwatch = document.getElementById('stopwatch')
+      var stopwatch2 = document.getElementById('stopwatch2')
+      var stopwatch3 = document.getElementById('stopwatch3')
+
+      var score = 0
+      var sec = 0
+      var min = 0
+      var hrs = 0
+      var t
+
+      function tick() {
+        score++
+        sec++
+        if (sec >= 60) {
+          sec = 0
+          min++
+          if (min >= 60) {
+            min = 0
+            hrs++
+          }
+        }
       }
-      var base = 60
-      var clocktimer, dateObj, dh, dm, ds, ms
-      var readout = ''
-      const stopwatch = document.getElementById('stopwatch')
-      const stopwatch2 = document.getElementById('stopwatch2')
-      const stopwatch3 = document.getElementById('stopwatch3')
-      var h = 1,
-        m = 1,
-        tm = 1,
-        s = 0,
-        ts = 0,
-        ms = 0,
-        init = 0
-      function ClearСlock() {
-        clearTimeout(clocktimer)
-        h = 1
-        m = 1
-        tm = 1
-        s = 0
-        ts = 0
-        ms = 0
-        init = 0
-        readout = '00'
-        stopwatch.innerHTML = readout
-        stopwatch2.innerHTML = readout
-        stopwatch3.innerHTML = readout
+      function add() {
+        tick()
+        stopwatch3.innerHTML = (hrs > 9 ? hrs : '0' + hrs)
+        stopwatch2.innerHTML = (min > 9 ? min : '0' + min)
+        stopwatch.innerHTML = (sec > 9 ? sec : '0' + sec)
+        timer()
       }
-      function StartTIME() {
-        var cdateObj = new Date()
-        var t = cdateObj.getTime() - dateObj.getTime() - s * 1000
-        if (t > 999) {
-          s++
-        }
-        if (s >= m * base) {
-          ts = 0
-          m++
-        } else {
-          ts = parseInt(ms / 100 + s)
-          if (ts >= base) {
-            ts = ts - (m - 1) * base
-          }
-        }
-        if (m > h * base) {
-          tm = 1
-          h++
-        } else {
-          tm = parseInt(ms / 100 + m)
-          if (tm >= base) {
-            tm = tm - (h - 1) * base
-          }
-        }
-        ms = Math.round(t / 10)
-        if (ms > 99) {
-          ms = 0
-        }
-        if (ms == 0) {
-          ms = '00'
-        }
-        if (ms > 0 && ms <= 9) {
-          ms = '0' + ms
-        }
-        if (ts > 0) {
-          ds = ts
-          if (ts < 10) {
-            ds = '0' + ts
-          }
-        } else {
-          ds = '00'
-        }
-        dm = tm - 1
-        if (dm > 0) {
-          if (dm < 10) {
-            dm = '0' + dm
-          }
-        } else {
-          dm = '00'
-        }
-        dh = h - 1
-        if (dh > 0) {
-          if (dh < 10) {
-            dh = '0' + dh
-          }
-        } else {
-          dh = '00'
-        }
-        readout = ds
-        readout2 = dm
-        readout3 = dh
-        stopwatch.innerHTML = readout
-        stopwatch2.innerHTML = readout2
-        stopwatch3.innerHTML = readout3
-        clocktimer = setTimeout('StartTIME()', 1)
-      }
-      function StartStop() {
-        if (init == 0) {
-          ClearСlock()
-          dateObj = new Date()
-          StartTIME()
-          init = 1
-        } else {
-          clearTimeout(clocktimer)
-          init = 0
-        }
+      function timer() {
+        t = setTimeout(add, 1000)
       }
 
       function gameFinished() {
-        totalPoints = s
+        totalPoints = score
 
-        StartStop()
+        clearTimeout(t)
 
         var httpRequest = new XMLHttpRequest()
         httpRequest.open(
@@ -198,6 +126,8 @@
         )
         httpRequest.send(null)
       }
+
+      timer()
     </script>
   </body>
 </html>
