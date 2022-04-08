@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 
-// if (process.argv.length !== 4) {
-//   console.error("./server.js <auth token> <webserver base URL>");
-//   process.exit(1);
-// } 
+if (process.argv.length !== 4) {
+  console.error("./server.js <auth token> <webserver base URL>");
+  process.exit(1);
+} 
 
 var url = require("url");
 var botgram = require("botgram");
 var express = require("express");
 
 var gameName = "waitsimulator";
-var publicBase = "https://honeysuckle-chief-drawbridge.glitch.me/";
-var bot = botgram("1157306008:AAFbrB79D4oby5Z5kwY4SicUZWXXsA9N-E0");
+var publicBase = process.argv[3];
+var bot = botgram(process.argv[2]);
 var server = express();
 
 var queries = {};
