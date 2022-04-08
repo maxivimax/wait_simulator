@@ -1,0 +1,13 @@
+{
+  "name": "WaitSimulator",
+  "private": false,
+  "version": "1.0",
+  "keywords": [ "telegram", "bot", "botgram", "game", "wait" ],
+  "description": "Wait Simulator Telegram game",
+  "homepage": "https://github.com/maxivimax/TGWaitSimulator",
+
+  "dependencies": {
+    "botgram": "2",
+    "express": "^4.5"
+  }
+}

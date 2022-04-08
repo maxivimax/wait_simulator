@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Wait Simulator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Baloo+Bhai);
+
+      html {
+        font-family: 'Baloo Bhai', sans-serif;
+        font-size: 4em;
+        background-color: #000000;
+      }
+      div {
+        color: white;
+      }
+
+      div.outer {
+        height: 10em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      div.outer {
+        margin: 0;
+      }
+
+      .button {
+        background-color: #fbeee0;
+        border: 2px solid #422800;
+        border-radius: 30px;
+        box-shadow: #422800 4px 4px 0 0;
+        color: #422800;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: 600;
+        font-size: 18px;
+        padding: 0 18px;
+        line-height: 50px;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+
+      .button:hover {
+        background-color: #fff;
+      }
+
+      .button:active {
+        box-shadow: #422800 2px 2px 0 0;
+        transform: translate(2px, 2px);
+      }
+
+      @media (min-width: 768px) {
+        .button {
+          min-width: 120px;
+          padding: 0 25px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div>Wait-t-t</div>
+
+      <div id="stopwatch3">00</div>
+      <div id="stopwatch2">00</div>
+      <div id="stopwatch">00</div>
+
+      <button class="button" role="button" onClick="gameFinished()">Я всё</button>
+    </div>
+
+    <script type="text/javascript">
+      window.onload = () => {
+        StartStop()
+      }
+      var base = 60
+      var clocktimer, dateObj, dh, dm, ds, ms
+      var readout = ''
+      const stopwatch = document.getElementById('stopwatch')
+      const stopwatch2 = document.getElementById('stopwatch2')
+      const stopwatch3 = document.getElementById('stopwatch3')
+      var h = 1,
+        m = 1,
+        tm = 1,
+        s = 0,
+        ts = 0,
+        ms = 0,
+        init = 0
+      function ClearСlock() {
+        clearTimeout(clocktimer)
+        h = 1
+        m = 1
+        tm = 1
+        s = 0
+        ts = 0
+        ms = 0
+        init = 0
+        readout = '00'
+        stopwatch.innerHTML = readout
+        stopwatch2.innerHTML = readout
+        stopwatch3.innerHTML = readout
+      }
+      function StartTIME() {
+        var cdateObj = new Date()
+        var t = cdateObj.getTime() - dateObj.getTime() - s * 1000
+        if (t > 999) {
+          s++
+        }
+        if (s >= m * base) {
+          ts = 0
+          m++
+        } else {
+          ts = parseInt(ms / 100 + s)
+          if (ts >= base) {
+            ts = ts - (m - 1) * base
+          }
+        }
+        if (m > h * base) {
+          tm = 1
+          h++
+        } else {
+          tm = parseInt(ms / 100 + m)
+          if (tm >= base) {
+            tm = tm - (h - 1) * base
+          }
+        }
+        ms = Math.round(t / 10)
+        if (ms > 99) {
+          ms = 0
+        }
+        if (ms == 0) {
+          ms = '00'
+        }
+        if (ms > 0 && ms <= 9) {
+          ms = '0' + ms
+        }
+        if (ts > 0) {
+          ds = ts
+          if (ts < 10) {
+            ds = '0' + ts
+          }
+        } else {
+          ds = '00'
+        }
+        dm = tm - 1
+        if (dm > 0) {
+          if (dm < 10) {
+            dm = '0' + dm
+          }
+        } else {
+          dm = '00'
+        }
+        dh = h - 1
+        if (dh > 0) {
+          if (dh < 10) {
+            dh = '0' + dh
+          }
+        } else {
+          dh = '00'
+        }
+        readout = ds
+        readout2 = dm
+        readout3 = dh
+        stopwatch.innerHTML = readout
+        stopwatch2.innerHTML = readout2
+        stopwatch3.innerHTML = readout3
+        clocktimer = setTimeout('StartTIME()', 1)
+      }
+      function StartStop() {
+        if (init == 0) {
+          ClearСlock()
+          dateObj = new Date()
+          StartTIME()
+          init = 1
+        } else {
+          clearTimeout(clocktimer)
+          init = 0
+        }
+      }
+
+      function gameFinished() {
+        totalPoints = s
+
+        StartStop()
+
+        var httpRequest = new XMLHttpRequest()
+        httpRequest.open(
+          'GET',
+          'submitScore/' + totalPoints + location.search,
+          true,
+        )
+        httpRequest.send(null)
+      }
+    </script>
+  </body>
+</html>
