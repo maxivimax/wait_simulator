@@ -1,0 +1,30 @@
+@import "_env";
+
+@import url("https://fonts.googleapis.com/css?family=Baloo+Bhai");
+
+html {
+  font-family: "Baloo Bhai", sans-serif;
+  font-size: 4em;
+  background-color: $color-bg;
+}
+
+div,
+h1 {
+  color: white;
+}
+
+div.outer {
+  height: 10em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+div.outer {
+  margin: 0;
+}
+
+.DownCon {
+  display: flex;
+}

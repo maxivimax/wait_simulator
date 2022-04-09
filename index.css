@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css?family=Baloo+Bhai");
+html {
+  font-family: "Baloo Bhai", sans-serif;
+  font-size: 4em;
+  background-color: black;
+}
+
+div,
+h1 {
+  color: white;
+}
+
+div.outer {
+  height: 10em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+}
+
+div.outer {
+  margin: 0;
+}
+
+.DownCon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
