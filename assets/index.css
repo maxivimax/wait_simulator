@@ -37,3 +37,26 @@ div.outer {
   display: -ms-flexbox;
   display: flex;
 }
+
+.wallet {
+  font-size: 0.6em;
+}
+
+.title {
+  line-height: 0.85em;
+}
+
+.MiddleCon {
+  padding: 0.85em;
+}
+
+button {
+  font-family: "Baloo Bhai", sans-serif;
+  line-height: 0.85em;
+  background-color: #000000;
+  border-radius: 1rem;
+  border: 2px dashed #ffffff;
+  width: 40vw;
+  padding-top: 3em;
+  padding-bottom: 3em;
+}
