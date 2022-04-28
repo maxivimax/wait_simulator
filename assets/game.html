@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
 
+<<<<<<< HEAD:assets/game.html
     <link rel="stylesheet" type="text/css" href="/index.css" />
     <link rel="stylesheet" type="text/css" href="./index.css" />
   </head>
@@ -54,10 +55,85 @@
           </button>
         </div>
       </container>
+=======
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Baloo+Bhai);
+
+      html {
+        font-family: 'Baloo Bhai', sans-serif;
+        font-size: 4em;
+        background-color: #000000;
+      }
+      div,
+      h1 {
+        color: white;
+      }
+
+      div.outer {
+        height: 10em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      div.outer {
+        margin: 0;
+      }
+
+      .button {
+        background-color: #fbeee0;
+        border: 2px solid #422800;
+        border-radius: 30px;
+        box-shadow: #422800 4px 4px 0 0;
+        color: #422800;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: 600;
+        font-size: 18px;
+        padding: 0 18px;
+        line-height: 50px;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+
+      .button:hover {
+        background-color: #fff;
+      }
+
+      .button:active {
+        box-shadow: #422800 2px 2px 0 0;
+        transform: translate(2px, 2px);
+      }
+
+      @media (min-width: 768px) {
+        .button {
+          min-width: 120px;
+          padding: 0 25px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div>Wait-t-t</div>
+
+      <div id="stopwatch3">00</div>
+      <div id="stopwatch2">00</div>
+      <div id="stopwatch">00</div>
+
+      <button class="button" onClick="gameFinished()" id="stp" >
+        Я всё
+      </button>
+>>>>>>> parent of 10ccb8f (Some edits):game.html
     </div>
 
     <script type="text/javascript">
       var stopwatch = document.getElementById('stopwatch')
+      var stopwatch2 = document.getElementById('stopwatch2')
+      var stopwatch3 = document.getElementById('stopwatch3')
 
       var score = 0
       var sec = 0
@@ -66,26 +142,22 @@
       var t
 
       function tick() {
-        if (ec > 0) {
-          sec++
-          if (sec >= 60) {
-            sec = 0
-            min++
-            if (min >= 60) {
-              min = 0
-              hrs++
-            }
+        score++
+        sec++
+        if (sec >= 60) {
+          sec = 0
+          min++
+          if (min >= 60) {
+            min = 0
+            hrs++
           }
         }
       }
       function add() {
         tick()
-        stopwatch.innerHTML =
-          (hrs > 9 ? hrs : '0' + hrs) +
-          ':' +
-          (min > 9 ? min : '0' + min) +
-          ':' +
-          (sec > 9 ? sec : '0' + sec)
+        stopwatch3.innerHTML = (hrs > 9 ? hrs : '0' + hrs)
+        stopwatch2.innerHTML = (min > 9 ? min : '0' + min)
+        stopwatch.innerHTML = (sec > 9 ? sec : '0' + sec)
         timer()
       }
       function timer() {
@@ -107,37 +179,6 @@
       }
 
       timer()
-    </script>
-    <script type="text/javascript">
-      var energyCount = document.getElementById('energyCount')
-      var timeFasterCount = document.getElementById('timeFasterCount')
-
-      var ec = 5
-      var tfc = 0
-
-      var tickTime = 0
-
-      function tickC() {
-        if (tickTime == 60) {
-          if (ec != 0) {
-            ec--
-          }
-          tickTime = 0
-        } else {
-          tickTime++
-        }
-      }
-      function addC() {
-        tickC()
-        energyCount.innerHTML = ec
-        timeFasterCount.innerHTML = tfc + 'x'
-        timerC()
-      }
-      function timerC() {
-        t = setTimeout(addC, 1000)
-      }
-
-      timerC()
     </script>
   </body>
 </html>

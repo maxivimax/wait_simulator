@@ -1,0 +1,3 @@
+help - Get help
+game - Send the game message
+It's all
