@@ -76,18 +76,6 @@
       <div class="outer">
         <container class="UpCon">
           <div>Wait-t-t</div>
-
-          <div id="wallet">
-            <span id="energy">
-              <span id="energyIcon">⚡</span>
-              <span id="energyCount">5</span>
-            </span>
-             |
-            <span id="timeFaster">
-              <span id="timeFasterIcon">💨</span>
-              <span id="timeFasterCount">0x</span>
-            </span>
-          </div>
         </container>
 
         <container class="gifCon">
@@ -100,7 +88,7 @@
         </container>
 
         <container class="DownCon">
-          <button class="DownButton" onclick="clickSc()">
+          <button class="DownButton" onClick="clickSc()">
             <div class="DBNMega">Click</div>
             <div class="DBMmini">please</div>
           </button>
@@ -138,15 +126,14 @@
       }
 
       function tick() {
-        if (ec > 0) {
-          sec++
-          if (sec >= 60) {
-            sec = 0
-            min++
-            if (min >= 60) {
-              min = 0
-              hrs++
-            }
+        sec++
+        score++
+        if (sec >= 60) {
+          sec = 0
+          min++
+          if (min >= 60) {
+            min = 0
+            hrs++
           }
         }
       }
@@ -165,51 +152,18 @@
       }
 
       function gameFinished() {
-        totalPoints = score
-
         clearTimeout(t)
 
         var httpRequest = new XMLHttpRequest()
         httpRequest.open(
           'GET',
-          'submitScore/' + totalPoints + location.search,
+          'submitScore/' + score + location.search,
           true,
         )
         httpRequest.send(null)
       }
 
       timer()
-    </script>
-    <script type="text/javascript">
-      var energyCount = document.getElementById('energyCount')
-      var timeFasterCount = document.getElementById('timeFasterCount')
-
-      var ec = 5
-      var tfc = 0
-
-      var tickTime = 0
-
-      function tickC() {
-        if (tickTime == 60) {
-          if (ec != 0) {
-            ec--
-          }
-          tickTime = 0
-        } else {
-          tickTime++
-        }
-      }
-      function addC() {
-        tickC()
-        energyCount.innerHTML = ec
-        timeFasterCount.innerHTML = tfc + 'x'
-        timerC()
-      }
-      function timerC() {
-        t = setTimeout(addC, 1000)
-      }
-
-      timerC()
     </script>
   </body>
 </html>
